@@ -10,7 +10,7 @@
     "ft_test": "mocha tests/functional",
     "lint": "eslint $(git ls-files '*.js')",
     "test": "mocha tests/unit",
-    "start": "node index.js"
+    "start": "node index.js --exec babel-node --presets es2015,stage-2"
   },
   "repository": "vrancurel/zenko-memcached-module",
   "keywords": [
@@ -28,7 +28,10 @@
     "eslint": "^2.4.0",
     "eslint-config-airbnb": "^6.0.0",
     "eslint-config-scality": "scality/Guidelines",
-    "eslint-plugin-react": "4.2.3"
+	"eslint-plugin-react": "4.2.3",
+	"babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
   },
   "dependencies": {
     "arsenal": "scality/Arsenal",
@@ -39,6 +42,7 @@
     "stream-array": "^1.1.2",
     "stream-to-string": "^1.1.0",
     "string-to-stream": "^1.1.0",
-    "werelogs": "scality/werelogs"
+	"werelogs": "scality/werelogs",
+	"mongodb": "^2.2.28"
   }
 }
