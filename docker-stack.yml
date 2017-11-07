@@ -71,6 +71,16 @@ services:
     networks:
       - backend
 
+  mongo:
+    image: mongo:latest
+    ports:
+        - "27017:27017"
+    networks:
+      - backend
+      - frontend-dmz
+    volumes:
+      - "s3-metadata:/data/db:rw"
+
   lb:
     image: zenko/loadbalancer
     ports:
