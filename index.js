@@ -214,3 +214,5 @@ dataServer.setup(err => {
 });
 
 console.log('Zenko Memcached Plugin Initialized');
+
+console.log('>>>>>>>>>>>>>>>>>YEEHAAW MOTHAFUCKAS<<<<<<<<<<<<<<<<<<<<<<<');
