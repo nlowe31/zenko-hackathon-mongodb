@@ -12,6 +12,24 @@ const crypto = require('crypto');
 const SUBLEVEL_SEP = '::';
 const MEMCACHED_LIFETIME = 100000;
 
+const assert = require('assert');
+const mongo = require('mongodb').MongoClient;
+
+var mongoUrl = 'mongodb://localhost:27017/metaData';
+
+mongo.connect(mongoUrl, function(err, db) {
+	if (err)
+		console.log("error connecting");
+	console.log('Successfully connected to server.');
+	db.collection('test').insertOne({testKey: 69}, function(err, result) {
+		if (err)
+			console.log("error inserting" + err);
+		if (result)
+			console.log('YEA BABY');
+	});
+	db.close();
+});
+
 const logOptions = {
     "logLevel": "debug",
     "dumpLevel": "error"
