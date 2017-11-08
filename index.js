@@ -16,7 +16,7 @@ const MEMCACHED_LIFETIME = 100000;
 const assert = require('assert');
 const mongo = require('mongodb').MongoClient;
 
-var mongoUrl = 'mongodb://localhost:27017/metaData';
+var mongoUrl = 'mongodb://mongo:27017/metaData';
 
 const logOptions = {
     "logLevel": "debug",
@@ -78,7 +78,7 @@ mdServer.initMetadataService = function(){
 			const dbName = env.subLevel.join(SUBLEVEL_SEP);
 			console.log('del', dbName, key, options);
 			if (dbs[dbName] === undefined) {
-				dbs[dbName] = levelup('/tmp/' + dbName + '.json', { db: jsondown });
+				dbs[dbName] = levelup(mongoUrl, { db: mongodown, collection: dbName });
 			}
 			dbs[dbName].del(key);
 			cb(null);
@@ -88,7 +88,7 @@ mdServer.initMetadataService = function(){
 			console.log('get', dbName, key, options);
 			if (dbs[dbName] === undefined) {
 				console.log(dbName, 'undefined');
-				dbs[dbName] = levelup('/tmp/' + dbName + '.json', { db: jsondown });
+				dbs[dbName] = levelup(mongoUrl, { db: mongodown, collection: dbName });
 			}
 			dbs[dbName].get(key, (err, value) => {
 				if (err) {
@@ -111,7 +111,7 @@ mdServer.initMetadataService = function(){
 			const dbName = env.subLevel.join(SUBLEVEL_SEP);
 			console.log('createReadStream', dbName, options);
 			if (dbs[dbName] === undefined) {
-				dbs[dbName] = levelup('/tmp/' + dbName + '.json', { db: jsondown });
+				dbs[dbName] = levelup(mongoUrl, { db: mongodown, collection: dbName });
 			}
 			return dbs[dbName].createReadStream();
 		},
