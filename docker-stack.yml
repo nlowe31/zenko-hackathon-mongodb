@@ -12,6 +12,7 @@ services:
       - backend
     depends_on:
       - memcached
+      - mongo
     environment:
       S3DATAPATH: /data
       S3METADATAPATH: /metadata
