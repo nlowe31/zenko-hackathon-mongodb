@@ -8,6 +8,7 @@ const jsondown = require('jsondown');
 const toString = require('stream-to-string');
 const toStream = require('string-to-stream');
 const crypto = require('crypto');
+const mongodown = require('mongodown');
 
 const SUBLEVEL_SEP = '::';
 const MEMCACHED_LIFETIME = 100000;
@@ -16,19 +17,6 @@ const assert = require('assert');
 const mongo = require('mongodb').MongoClient;
 
 var mongoUrl = 'mongodb://localhost:27017/metaData';
-
-mongo.connect(mongoUrl, function(err, db) {
-	if (err)
-		console.log("error connecting");
-	console.log('Successfully connected to server.');
-	db.collection('test').insertOne({testKey: 69}, function(err, result) {
-		if (err)
-			console.log("error inserting" + err);
-		if (result)
-			console.log('YEA BABY');
-	});
-	db.close();
-});
 
 const logOptions = {
     "logLevel": "debug",
@@ -81,7 +69,7 @@ mdServer.initMetadataService = function(){
 			const dbName = env.subLevel.join(SUBLEVEL_SEP);
 			console.log('put', dbName, key, value, options);
 			if (dbs[dbName] === undefined) {
-				dbs[dbName] = levelup('/tmp/' + dbName + '.json', { db: jsondown });
+				dbs[dbName] = levelup(mongoUrl, { db: mongodown, collection: dbName });
 			}
 			dbs[dbName].put(key, value);
 			cb(null);
