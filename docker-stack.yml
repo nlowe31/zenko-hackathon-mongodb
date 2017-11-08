@@ -80,9 +80,9 @@ services:
       - frontend-dmz
     volumes:
       - "s3-metadata:/data/db:rw"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=root
+#      - MONGO_INITDB_ROOT_PASSWORD=root
 
   lb:
     image: zenko/loadbalancer
