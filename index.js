@@ -8,7 +8,7 @@ const jsondown = require('jsondown');
 const toString = require('stream-to-string');
 const toStream = require('string-to-stream');
 const crypto = require('crypto');
-const mongodown = require('mongodown');
+const mongodown = require('./lib/mongoDownOriginal');
 
 const SUBLEVEL_SEP = '::';
 const MEMCACHED_LIFETIME = 100000;
