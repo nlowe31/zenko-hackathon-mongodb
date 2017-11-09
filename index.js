@@ -80,6 +80,7 @@ mdServer.initMetadataService = function(){
 			if (dbs[dbName] === undefined) {
 				dbs[dbName] = levelup(mongoUrl, { db: mongodown, collection: dbName });
 			}
+			console.log('\x1b[31m%s', '=================IN THE FCKING IF===================');
 			dbs[dbName].del(key);
 			cb(null);
         },
