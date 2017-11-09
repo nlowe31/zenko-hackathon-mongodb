@@ -4,17 +4,13 @@ const arsenal = require('arsenal');
 const werelogs = require('werelogs');
 const Memcached = require('memcached');
 const levelup = require('levelup');
-const jsondown = require('jsondown');
 const toString = require('stream-to-string');
 const toStream = require('string-to-stream');
 const crypto = require('crypto');
-const mongodown = require('./lib/mongoDownOriginal');
+const mongoDown = require('./lib/mongoDown');
 
 const SUBLEVEL_SEP = '::';
 const MEMCACHED_LIFETIME = 100000;
-
-const assert = require('assert');
-const mongo = require('mongodb').MongoClient;
 
 var mongoUrl = 'mongodb://mongo:27017/metaData';
 
@@ -69,7 +65,7 @@ mdServer.initMetadataService = function(){
 			const dbName = env.subLevel.join(SUBLEVEL_SEP);
 			console.log('put', dbName, key, value, options);
 			if (dbs[dbName] === undefined) {
-				dbs[dbName] = levelup(mongoUrl, { db: mongodown, collection: dbName });
+				dbs[dbName] = levelup(mongoUrl, { db: mongoDown, collection: dbName });
 			}
 			dbs[dbName].put(key, value);
 			cb(null);
@@ -78,7 +74,7 @@ mdServer.initMetadataService = function(){
 			const dbName = env.subLevel.join(SUBLEVEL_SEP);
 			console.log('del', dbName, key, options);
 			if (dbs[dbName] === undefined) {
-				dbs[dbName] = levelup(mongoUrl, { db: mongodown, collection: dbName });
+				dbs[dbName] = levelup(mongoUrl, { db: mongoDown, collection: dbName });
 			}
 			dbs[dbName].del(key);
 			cb(null);
@@ -88,7 +84,7 @@ mdServer.initMetadataService = function(){
 			console.log('get', dbName, key, options);
 			if (dbs[dbName] === undefined) {
 				console.log(dbName, 'undefined');
-				dbs[dbName] = levelup(mongoUrl, { db: mongodown, collection: dbName });
+				dbs[dbName] = levelup(mongoUrl, { db: mongoDown, collection: dbName });
 			}
 			dbs[dbName].get(key, (err, value) => {
 				if (err) {
@@ -111,7 +107,7 @@ mdServer.initMetadataService = function(){
 			const dbName = env.subLevel.join(SUBLEVEL_SEP);
 			console.log('createReadStream', dbName, options);
 			if (dbs[dbName] === undefined) {
-				dbs[dbName] = levelup(mongoUrl, { db: mongodown, collection: dbName });
+				dbs[dbName] = levelup(mongoUrl, { db: mongoDown, collection: dbName });
 			}
 			return dbs[dbName].createReadStream();
 		},
