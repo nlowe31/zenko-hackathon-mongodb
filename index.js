@@ -12,7 +12,7 @@ const mongoDown = require('./lib/mongoDown');
 const SUBLEVEL_SEP = '::';
 const MEMCACHED_LIFETIME = 100000;
 
-var mongoUrl = 'mongodb://mongo:27017/metaData';
+var mongoUri = 'mongodb://mongo:27017/metaData';
 
 const logOptions = {
     "logLevel": "debug",
@@ -65,7 +65,7 @@ mdServer.initMetadataService = function(){
 			const dbName = env.subLevel.join(SUBLEVEL_SEP);
 			console.log('put', dbName, key, value, options);
 			if (dbs[dbName] === undefined) {
-				dbs[dbName] = levelup(mongoUrl, { db: mongoDown, collection: dbName });
+				dbs[dbName] = levelup(mongoUri, { db: mongoDown, collection: dbName });
 			}
 			dbs[dbName].put(key, value);
 			cb(null);
@@ -74,7 +74,7 @@ mdServer.initMetadataService = function(){
 			const dbName = env.subLevel.join(SUBLEVEL_SEP);
 			console.log('del', dbName, key, options);
 			if (dbs[dbName] === undefined) {
-				dbs[dbName] = levelup(mongoUrl, { db: mongoDown, collection: dbName });
+				dbs[dbName] = levelup(mongoUri, { db: mongoDown, collection: dbName });
 			}
 			dbs[dbName].del(key);
 			cb(null);
@@ -84,7 +84,7 @@ mdServer.initMetadataService = function(){
 			console.log('get', dbName, key, options);
 			if (dbs[dbName] === undefined) {
 				console.log(dbName, 'undefined');
-				dbs[dbName] = levelup(mongoUrl, { db: mongoDown, collection: dbName });
+				dbs[dbName] = levelup(mongoUri, { db: mongoDown, collection: dbName });
 			}
 			dbs[dbName].get(key, (err, value) => {
 				if (err) {
@@ -107,7 +107,7 @@ mdServer.initMetadataService = function(){
 			const dbName = env.subLevel.join(SUBLEVEL_SEP);
 			console.log('createReadStream', dbName, options);
 			if (dbs[dbName] === undefined) {
-				dbs[dbName] = levelup(mongoUrl, { db: mongoDown, collection: dbName });
+				dbs[dbName] = levelup(mongoUri, { db: mongoDown, collection: dbName });
 			}
 			return dbs[dbName].createReadStream();
 		},
@@ -211,5 +211,3 @@ dataServer.setup(err => {
 });
 
 console.log('Zenko Memcached Plugin Initialized');
-
-console.log('>>>>>>>>>>>>>>>>>YEEHAAW MOTHAFUCKAS<<<<<<<<<<<<<<<<<<<<<<<');
