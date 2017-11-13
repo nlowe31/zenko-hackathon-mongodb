@@ -1,10 +1,16 @@
-# zenko-dmd-test
+# zenko-hackathon-mongodb
 
 ## Introduction
 
-This module is definitely a **proof of concept** to demonstrate how to create
-data and metadata storage modules (containers) for Zenko. The aim is to enable
-you to make the most of Zenko's flexibility in terms of backends.
+This module is a proof of concept to demostrate how MongoDB could be used as the metadata management backend for Zenko. It is based on a simplified stack created by
+[Vianney Rancurel](https://github.com/vrancurel/zenko-dmd-test)
+ and was created during the 2017 Zenko Hackathon at École 42 in Paris.
+
+ The basis of the project was to adapt a LevelDOWN-compatible module to interface with MongoDB called MongoDown.
+
+The remainder of the README is for the original simplified stack created by vrancurel.
+
+---
 
 Please note that for production we strongly recommend the creation of two
 distinct modules for data and metadata; indeed, they respond to very different
